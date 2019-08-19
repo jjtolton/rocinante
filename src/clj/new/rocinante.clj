@@ -26,8 +26,8 @@
                "resources/public/css"
                "resources/public/html"
                "resources/public/js"
-               ["cljs/base/resources/index.html"
-                (render "resources/public/index.html" data)]
+               ["resources/public/index.html"
+                (render "cljs/base/resources/index.html" data)]
 
                ;; scripts
                "scripts"

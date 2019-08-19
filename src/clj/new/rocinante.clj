@@ -25,8 +25,7 @@
                "resources/public/css"
                "resources/public/html"
                "resources/public/js"
-               ["resources/public/index.html"
-                (render "resources/index.html" data)]
+               (render-it "resources/public/index.html")
 
                ;; scripts
                "scripts"

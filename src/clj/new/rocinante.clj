@@ -1,7 +1,7 @@
 (ns clj.new.rocinante
   (:require [clj.new.templates :refer [renderer project-name name-to-path ->files]]))
 
-(def render (renderer "base.template"))
+(def render (renderer "rocinante"))
 
 
 (defn cljs-template! [name]

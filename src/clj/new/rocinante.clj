@@ -1,4 +1,4 @@
-(ns clj.new.base-template
+(ns clj.new.rocinante
   (:require [clj.new.templates :refer [renderer project-name name-to-path ->files]]))
 
 (def render (renderer "base.template"))
@@ -87,7 +87,7 @@
 
 
 
-(defn base-template
+(defn rocinante
   [name & args]
   (cond
     (some #{"--cljs" "cljs" "+cljs"} args) (cljs-template! name)

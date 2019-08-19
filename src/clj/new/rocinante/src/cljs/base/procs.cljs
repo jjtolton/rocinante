@@ -11,28 +11,26 @@
 
 
 (defonce event-loop
-   (let [event-channel (data/events-channel)
-       active? (atom true)]
-      (letfn [(stop! [] (reset! active? false))
-        (notification! [] (js/console.log "Initializing event loop"))
-        (start! []
-            (go
-              (while @active?
-                 (when-let [event (a/<! event-channel)]
-                     (cljs.pprint/pprint (into (sorted-map) (seq event)))
-                     (data/events! event)
-                     (try
-                       (into
-                         []
-                         (comp
-                           (map events/event)
-                           (map handlers/handle!)
-                           cat)
-                         [event])
-                       (catch :default e
-                         (js/console.error e)))))))]
-           (notification!)
-           (start!)
+         (let [event-channel (data/events-channel)
+               active? (atom true)]
+           (letfn [(stop! [] (reset! active? false))
+                   (notification! [] (js/console.log "Initializing event loop"))
+                   (start! []
+                     (go
+                       (while @active?
+                         (when-let [event (a/<! event-channel)]
+                           (println "recieved event:" event)
+                           (cljs.pprint/pprint
+                             (into
+                               []
+                               (comp
+                                 (map data/events!)
+                                 (map events/event)
+                                 (map handlers/handle!)
+                                 cat)
+                               [event]))))))]
+             (notification!)
+             (start!)
              stop!)))
 
 (defn event-loop! [] event-loop)

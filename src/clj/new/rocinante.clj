@@ -26,7 +26,7 @@
                "resources/public/html"
                "resources/public/js"
                ["resources/public/index.html"
-                (render "src/cljs/base/resources/index.html" data)]
+                (render "resources/index.html" data)]
 
                ;; scripts
                "scripts"
@@ -64,10 +64,6 @@
                ;; src/js
                (render-it "src/js/index.js")
 
-
-
-
-
                ;; project config files
                (render-it "Makefile")
                (render-it "deps.edn")
@@ -82,37 +78,8 @@
                (render-it "README.md")
                (render-it "setup.sh")
                (render-it "webpack.config.js")
-               (render-it "worker.cljs.edn"))))
-  )
+               (render-it "worker.cljs.edn")))))
 
 
 
-(defn rocinante
-  [name & args]
-  (cond
-    (some #{"--cljs" "cljs" "+cljs"} args) (cljs-template! name)
-    :else (clojure.pprint/pprint {:project/name      (project-name name)
-                                  :project/sanitized (name-to-path name)
-                                  :project/base      (clojure.string/replace
-                                                       (project-name name)
-                                                       #"(.*?)[.](.*$)"
-                                                       "$1")
-                                  :cli/args          args
-                                  :clj/name          name})
-    )
-
-  )
-
-
-(comment
-  (letfn [(render-it
-            [path-name]
-            [(clojure.string/replace path-name #"\{\{base\}\}" "base")
-             #_(render (str "cljs/" path-name) data)])]
-
-    (render-it "src/cljs/{{base}}/lib/procs.cljs"
-
-               )))
-
-
-
+(defn rocinante [name] (cljs-template! name))

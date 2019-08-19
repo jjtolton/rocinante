@@ -1,0 +1,60 @@
+{:paths ["resources" "src"]
+ :deps  {org.clojure/clojure {:mvn/version "RELEASE"}
+
+         org.slf4j/jcl-over-slf4j   #:mvn{:version "1.7.25"},
+         org.slf4j/jul-to-slf4j     #:mvn{:version "1.7.25"},
+         org.slf4j/log4j-over-slf4j #:mvn{:version "1.7.25"}
+         org.clojure/clojure        {:mvn/version "1.10.0"}
+
+         datascript                 {:mvn/version "0.18.2"}
+         org.clojure/data.codec     {:mvn/version "0.1.1"}
+         compojure                  {:mvn/version "1.6.1"}
+         http-kit                   {:mvn/version "2.3.0"}
+         ring-cors                  {:mvn/version "0.1.13"}
+         vvvvalvalval/supdate       {:mvn/version "0.2.3"}
+         org.clojure/core.match     {:mvn/version "0.3.0"}
+         com.novemberain/langohr    {:mvn/version "5.1.0"}
+         com.novemberain/monger     {:mvn/version "3.1.0"}
+         tempfile                   #:mvn{:version "0.2.0"}
+         org.clojure/data.csv       {:mvn/version "0.1.4"}
+         ;org.clojure/java.jdbc      {:mvn/version "0.7.9"}
+         ;com.datomic/client-pro     {:mvn/version "0.8.28"}
+         ;com.datomic/datomic-pro    {:mvn/version "0.9.5786"}
+         ;com.datomic/datomic-pro    {:mvn/version "0.9.5783"}
+         ;mysql/mysql-connector-java     {:local/root "../mysql-connector-java-8.0.16.jar"}
+         ;clojure.jdbc                   {:mvn/version "0.4.0"}
+         ;mysql/mysql-connector-java     {:mvn/version "5.1.6"}
+         mysql/mysql-connector-java {:mvn/version "8.0.16"}
+         com.datomic/datomic-free   {:mvn/version "0.9.5697"}
+         ;com.datomic/datomic-free       {:mvn/version
+         ;                                "0.9.5703"
+         ;                                :exclusions
+         ;                                [org.slf4j/slf4j-nop
+         ;                                 org.slf4j/log4j-over-slf4j
+         ;                                 org.slf4j/jcl-over-slf4j]}
+
+         com.taoensso/sente         {:mvn/version "1.14.0-RC2"}
+         buddy                      {:mvn/version "2.0.0"}
+
+
+
+
+         seancorfield/clj-new
+                             {:git/url "https://github.com/seancorfield/clj-new"
+                              :sha     "492bb2e7ad7373a8b5958124a86cddc4c7a123d5"}}
+ :aliases
+        {:test    {:extra-paths ["test"]
+                   :extra-deps  {org.clojure/test.check {:mvn/version "RELEASE"}}}
+         :runner
+                  {:extra-deps {com.cognitect/test-runner
+                                {:git/url "https://github.com/cognitect-labs/test-runner"
+                                 :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}}
+                   :main-opts  ["-m" "cognitect.test-runner"
+                                "-d" "test"]}
+
+         :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+                   :main-opts  ["-m" "hf.depstar.uberjar"]}
+         :jar     {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+                   :main-opts  ["-m" "hf.depstar.jar"]}
+
+         }}

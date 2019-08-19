@@ -1,0 +1,145 @@
+Usage: clojure -m figwheel.main [init-opt*] [main-opt] [arg*]
+
+Common usage:
+  clj -m figwheel.main -b dev -r
+Which is equivalient to:
+  clj -m figwheel.main -co dev.cljs.edn -c example.core -r
+
+In the above example, dev.cljs.edn is a file in the current directory
+that holds a build configuration which is a Map of ClojureScript
+compile options. In the above command example.core is ClojureScript
+namespace on your classpath that you want to compile.
+
+A minimal dev.cljs.edn will look similar to:
+{:main example.core}
+
+The above command will start a watch process that will compile your
+source files when one of them changes, it will also facilitate
+communication between this watch process and your JavaScript
+environment (normally a browser window) so that it can hot reload
+changed code into the environment. After the initial compile, it
+will then launch a browser to host your compiled ClojureScript code,
+and finally a CLJS REPL will launch.
+
+Configuration:
+
+In the above example, besides looking for a dev.cljs.edn file,
+figwheel.main will also look for a figwheel-main.edn file in the
+current directory as well.
+
+A list of all the config options can be found here:
+https://github.com/bhauman/figwheel-main/blob/master/doc/figwheel-main-options.md
+
+A list of ClojureScript compile options can be found here:
+https://clojurescript.org/reference/compiler-options
+
+You can add build specific figwheel.main configuration in the
+*.cljs.edn file by adding metadata to the build config file like
+so:
+
+^{:watch-dirs ["dev" "cljs-src"]}
+{:main example.core}
+
+Command Line Options:
+
+With no options or args, figwheel.main runs a ClojureScript REPL
+
+init options:
+  -co, --compile-opts edn     Options to configure the build, can be an EDN 
+                              string or system-dependent path-separated list of 
+                              EDN files / classpath resources. Options will be 
+                              merged left to right. Any meta data will be 
+                              merged with the figwheel-options.
+   -d, --output-dir path      Set the output directory to use
+  -pc, --print-config         Instead of running the command print out the 
+                              configuration built up by the command. Useful for 
+                              debugging.
+   -t, --target name          The JavaScript target. Configures environment 
+                              bootstrap and defaults to browser. Supported 
+                              values: node or nodejs, nashorn, graaljs, 
+                              webworker, none
+
+init options only for --main and --repl:
+   -e, --eval string          Evaluate expressions in string; print non-nil 
+                              values
+   -i, --init path            Load a file or resource
+   -v, --verbose bool         If true, will enable ClojureScript verbose logging
+
+init options only for --compile:
+   -O, --optimizations level  Set optimization level, only effective with --
+                              compile main option. Valid values are: none, 
+                              whitespace, simple, advanced
+  -bb, --background-build str The name of a build config to watch and build in 
+                              the background.
+  -fw, --figwheel bool        Use Figwheel to auto reload and report compile 
+                              info. Only takes effect when watching is 
+                              happening and the optimizations level is :none or 
+                              nil.Defaults to true.
+ -fwo, --fw-opts edn          Options to configure figwheel.main, can be an EDN 
+                              string or system-dependent path-separated list of 
+                              EDN files / classpath resources. Options will be 
+                              merged left to right.
+   -o, --output-to file       Set the output compiled file
+   -w, --watch path           Continuously build, only effective with the --
+                              compile and --build main options. This option can 
+                              be supplied multiple times.
+
+Figwheel REPL options:
+   -H, --host address         Address to bind
+   -p, --port number          Port to bind
+  -rh, --ring-handler string  Ring Handler for default REPL server EX. "example.
+                              server/handler" 
+
+main options:
+   -                          Run a script from standard input
+   -b, --build string         Run a compile process. The supplied build name or 
+                              a list of build names (seperated by ":") refer to 
+                              EDN files of compile options IE. If you use "dev" 
+                              as a build name it will indicate that a "dev.cljs.
+                              edn" will be read for compile options. Multiple 
+                              build names will merged left to right along with 
+                              their metadata. The --build option will make an 
+                              extra attempt to initialize a figwheel live 
+                              reloading workflow. May be followed buy either --
+                              repl or --serve. If --repl follows, will launch a 
+                              REPL (along with a server) after the compile 
+                              completes. If --serve follows, will only start a 
+                              web server according to current configuration 
+                              after the compile completes.
+  -bo, --build-once string    Compile for the build name one time. Looks for 
+                              build EDN files just like the --build command. 
+                              This will not inject Figwheel or REPL 
+                              functionality into your build. It will still 
+                              inject devtools if you are using :optimizations :
+                              none. If --serve follows, will start a web server 
+                              according to current configuration after the 
+                              compile completes.
+   -c, --compile [ns]         Run a compile. If optional namespace specified, 
+                              use as the main entry point. If --repl follows, 
+                              will launch a REPL after the compile completes. 
+                              If --server follows, will start a web server that 
+                              serves the current directory after the compile 
+                              completes.
+   -h, --help, -?             Print this help message and exit
+   -m, --main ns              Call the -main function from a namespace with args
+   -r, --repl                 Run a REPL
+   -s, --serve host:port      Run a server based on the figwheel-main 
+                              configuration options.
+   path                       Run a script from a file or resource
+
+For --main and --repl:
+
+  - Enters the cljs.user namespace
+  - Binds *command-line-args* to a seq of strings containing command line
+    args that appear after any main option
+  - Runs all init options in order
+  - Calls a -main function or runs a repl or script if requested
+
+The init options may be repeated and mixed freely, but must appear before
+any main option.
+
+In the case of --compile and --build you may supply --repl or --serve
+options afterwards.
+
+Paths may be absolute or relative in the filesystem or relative to
+classpath. Classpath-relative paths have prefix of @ or @/

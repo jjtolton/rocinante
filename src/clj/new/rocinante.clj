@@ -17,11 +17,10 @@
               [path-name]
               [path-name
                (render
-                 (str "cljs/"
-                      (clojure.string/replace path-name #"\{\{base\}\}" "base"))
+                 (clojure.string/replace path-name #"\{\{base\}\}" "base")
                  data)])]
-      (->files data
 
+      (->files data
                ;; resources
                "resources/public/css"
                "resources/public/html"

@@ -3,6 +3,7 @@
     [clojure.core.async]
     [{{base}}.lib.utils :as utils]
     [{{base}}.lib.handlers.notify :as notify]
+    [{{base}}.lib.handlers.data :as data]
     )
   (:require-macros
     [cljs.core.async.macros :as am :refer [go]]))
@@ -15,3 +16,4 @@
 
 (defmethod handle! :notify [e] (notify/handle! e))
 
+(defmethod handle! :data [e] (data/handle! e))

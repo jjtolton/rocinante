@@ -39,6 +39,7 @@
                (render-it "src/cljs/{{base}}/lib/events/notify.cljs")
                (render-it "src/cljs/{{base}}/lib/events/items.cljs")
                (render-it "src/cljs/{{base}}/lib/handlers/notify.cljs")
+               (render-it "src/cljs/{{base}}/lib/handlers/data.cljs")
                (render-it "src/cljs/{{base}}/lib/events.cljs")
                (render-it "src/cljs/{{base}}/lib/handlers.cljs")
                (render-it "src/cljs/{{base}}/lib/procs.cljs")

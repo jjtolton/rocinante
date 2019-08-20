@@ -37,11 +37,11 @@
 
   clojure.core/Keyword
   (event!
-    ([e] (a/offer! (data/event-channel)
+    ([e] (a/offer! (data/events-channel)
                    {:timestamp (c/to-epoch (t/now))
                     :event     e}))
 
-    ([k v] (a/offer! (data/event-channel)
+    ([k v] (a/offer! (data/events-channel)
                      {:timestamp (c/to-epoch (t/now))
                       :event     k
                       :data      v}))))

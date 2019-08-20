@@ -7,9 +7,6 @@
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
-
-
-
 (defonce event-loop
          (let [event-channel (data/events-channel)
                active? (atom true)]
@@ -19,34 +16,21 @@
                      (go
                        (while @active?
                          (when-let [event (a/<! event-channel)]
-                           (println (into (sorted-map) (seq event)))
-                           (into
-                             []
-                             (comp
-                               (map data/events!)
-                               (map events/event)
-                               (map handlers/handle!)
-                               cat)
-                             [event])))))]
+                           (try
+                             (println (into (sorted-map) (seq event)))
+                             (into
+                               []
+                               (comp
+                                 (map data/events!)
+                                 (map events/event)
+                                 (map handlers/handle!)
+                                 cat)
+                               [event])
+                             (catch :default e
+                               (js/console.error e))
+                             )))))]
              (notification!)
              (start!)
              stop!)))
 
 (defn event-loop! [] event-loop)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

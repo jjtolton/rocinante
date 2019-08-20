@@ -2,6 +2,7 @@
   (:require [{{base}}.lib.utils :as utils]
             [{{base}}.lib.events.init :as init]
             [{{base}}.lib.events.notify :as notify]
+            [{{base}}.lib.events.items :as items]
             [{{base}}.lib.events.data :as data]))
 
 (defmulti event utils/event-type)
@@ -12,3 +13,4 @@
 
 (defmethod event :data [e] (data/event! e))
 
+(defmethod event :item [e] (items/event! e))

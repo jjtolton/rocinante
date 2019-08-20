@@ -12,4 +12,11 @@
 
 (defn event-data [{data :data}] data)
 
+(defn event-key [e]
+      (-> e .-key))
 
+(defn evt-submit? [e]
+      (-> e event-key (= "Enter")))
+
+(defn evt-value [e]
+      (-> e .-target .-value))

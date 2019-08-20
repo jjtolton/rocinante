@@ -1,0 +1,10 @@
+ol {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 50%;
+}
+
+td,li {
+    white-space: nowrap;
+}
+

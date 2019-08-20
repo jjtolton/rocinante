@@ -26,6 +26,7 @@
                "resources/public/html"
                "resources/public/js"
                (render-it "resources/public/index.html")
+               (render-it "resources/public/css/screen.css")
 
                ;; scripts
                "scripts"
@@ -36,6 +37,7 @@
                (render-it "src/cljs/{{base}}/lib/events/data.cljs")
                (render-it "src/cljs/{{base}}/lib/events/init.cljs")
                (render-it "src/cljs/{{base}}/lib/events/notify.cljs")
+               (render-it "src/cljs/{{base}}/lib/events/items.cljs")
                (render-it "src/cljs/{{base}}/lib/handlers/notify.cljs")
                (render-it "src/cljs/{{base}}/lib/events.cljs")
                (render-it "src/cljs/{{base}}/lib/handlers.cljs")

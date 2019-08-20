@@ -1,4 +1,4 @@
-(ns {{base}}.platforms.lib.data.ds
+(ns {{base}}.lib.data.ds
   (:require [reagent.core :as reagent]
             [datascript.core :as d]))
 
@@ -6,6 +6,9 @@
 
 (defn site-schema []
   {:db/ident          {:db/unique :db.unique/identity}
+
+   ;; TODO -- remove me for your application
+   :item/id  {:db/unique :db.unique/identity}
 
    })
 

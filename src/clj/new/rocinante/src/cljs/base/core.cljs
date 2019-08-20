@@ -30,6 +30,7 @@
 (defn ^:export init []
   (dev-setup)
   (procs/event-loop!)
+  (events/event! :init/init)
   (mount-root))
 
 

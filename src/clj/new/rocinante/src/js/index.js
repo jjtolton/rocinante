@@ -4,21 +4,15 @@
  */
 
 import * as antd from "antd";
-import {message} from "antd";
 import * as MaterialUI from "@material-ui/core";
 import * as MaterialIcons from "@material-ui/icons";
 
 require("bootstrap/dist/css/bootstrap.css");
 require("antd/dist/antd.css");
 
-// var goog = goog || {};
-// window.goog = goog;
+
 window.antd = antd;
+window.antMessage = antd.message;
+window.antMessage.success = antd.message.success;
 window.MaterialUI = MaterialUI;
 window.MaterialIcons = MaterialIcons;
-window.antMessage = message;
-
-
-
-
-

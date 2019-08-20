@@ -7,14 +7,9 @@
   [:div
    [:button
     {:on-click
-     #(events/event! [{:event :notify/success
-                       :data  "Yo!!"}
-                      {:event :notify/warn
-                       :data  "eyyyy!!!"}
-                      ])}
-    "Yooo!!"
-
-    ]
+     #(events/event! {:event :notify/success
+                      :data  "Yo!!"})}
+    "Yooo!!"]
    [:table
     [:thead
      [:tr

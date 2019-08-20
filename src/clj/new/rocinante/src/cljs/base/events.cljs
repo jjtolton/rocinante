@@ -24,25 +24,25 @@
   clojure.core/PersistentVector
   (event! [e] (a/onto-chan
                 (data/events-channel)
-                (into [] (map #(assoc % :timestamp (t/now))) e)
+                (into [] (map #(assoc % :timestamp (c/to-epoch (t/now)))) e)
                 false))
 
   clojure.core/PersistentHashMap
   (event! [e] (a/offer! (data/events-channel)
-                        (assoc e :timestamp (t/now))))
+                        (assoc e :timestamp (c/to-epoch (t/now)))))
 
   clojure.core/PersistentArrayMap
-  (event! [e] (a/offer! (data/events-channel) (assoc e :timestamp (t/now))))
+  (event! [e] (a/offer! (data/events-channel) (assoc e :timestamp (c/to-epoch (t/now)))))
 
 
   clojure.core/Keyword
   (event!
     ([e] (a/offer! (data/event-channel)
-                   {:timestamp (t/now)
+                   {:timestamp (c/to-epoch (t/now))
                     :event     e}))
 
     ([k v] (a/offer! (data/event-channel)
-                     {:timestamp (t/now)
+                     {:timestamp (c/to-epoch (t/now))
                       :event     k
                       :data      v}))))
 

@@ -1,15 +1,17 @@
 (ns {{base}}.lib.handlers.notify
-  (:require [ant-message]
+  (:require [antd]
             [{{base}}.lib.utils :as utils]))
 
-(defmulti handle! :subtype)
+(defmulti -handle! :subtype)
 
-(defmethod handle! :default [{type :event}]
-  (println "[-] No notification message defined for " type))
+(defn handle! [e] (-handle! e))
 
-(defmethod handle! :success [e] (.success ant-message (utils/event-data e)))
-(defmethod handle! :info [e] (.info ant-message (utils/event-data e)))
-(defmethod handle! :loading [e] (.loading ant-message (utils/event-data e)))
-(defmethod handle! :warn [e] (.warn ant-message (utils/event-data e)))
-(defmethod handle! :error [e] (.error ant-message (utils/event-data e)))
+(defmethod -handle! :default [{type :event}]
+           (println "[-] No notification message defined for " type))
+
+(defmethod -handle! :success [e] (js/antd.message.success (utils/event-data e)))
+(defmethod -handle! :info [e] (js/antd.message.info (utils/event-data e)))
+(defmethod -handle! :loading [e] (js/antd.message.loading (utils/event-data e)))
+(defmethod -handle! :warn [e] (js/antd.message.warn (utils/event-data e)))
+(defmethod -handle! :error [e] (js/antd.message.error (utils/event-data e)))
 

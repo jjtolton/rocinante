@@ -19,21 +19,28 @@
                      (go
                        (while @active?
                          (when-let [event (a/<! event-channel)]
-                           (println "recieved event:" event)
-                           (cljs.pprint/pprint
-                             (into
-                               []
-                               (comp
-                                 (map data/events!)
-                                 (map events/event)
-                                 (map handlers/handle!)
-                                 cat)
-                               [event]))))))]
+                           (println (into (sorted-map) (seq event)))
+                           (into
+                             []
+                             (comp
+                               (map data/events!)
+                               (map events/event)
+                               (map handlers/handle!)
+                               cat)
+                             [event])))))]
              (notification!)
              (start!)
              stop!)))
 
 (defn event-loop! [] event-loop)
+
+
+
+
+
+
+
+
 
 
 

@@ -1,8 +1,8 @@
 (ns {{base}}.procs
  (:require
-    [{{base}}events :as events]
-    [{{base}}handlers :as handlers]
-    [{{base}}data :as data]
+    [{{base}}.events :as events]
+    [{{base}}.handlers :as handlers]
+    [{{base}}.data :as data]
     [cljs.core.async :as a])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))

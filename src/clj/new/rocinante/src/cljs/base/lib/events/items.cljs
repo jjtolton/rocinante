@@ -1,6 +1,6 @@
 (ns {{base}}.lib.events.items
-  (:require [{{base}}lib.utils :as utils]
-            [{{base}}lib.data.ds :as ds]))
+  (:require [{{base}}.lib.utils :as utils]
+            [{{base}}.lib.data.ds :as ds]))
 
 (defmulti event! utils/event-subtype)
 

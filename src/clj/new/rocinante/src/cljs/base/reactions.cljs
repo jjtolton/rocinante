@@ -1,6 +1,6 @@
 (ns {{base}}.reactions
   (:require [reagent.ratom :as ratom]
-            [{{some}}.lib.data.ds :as ds]))
+            [{{base}}.lib.data.ds :as ds]))
 
 
 (defn todo-items []

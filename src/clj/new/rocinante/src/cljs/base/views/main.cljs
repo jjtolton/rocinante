@@ -1,9 +1,9 @@
 (ns {{base}}.views.main
-  (:require [{{base}}events :as events]
-            [{{base}}reactions :as rx]
-            [{{base}}data :as data]
-            [{{base}}lib.utils :as utils]
-            [{{base}}lib.data.ds :as ds]))
+  (:require [{{base}}.events :as events]
+            [{{base}}.reactions :as rx]
+            [{{base}}.data :as data]
+            [{{base}}.lib.utils :as utils]
+            [{{base}}.lib.data.ds :as ds]))
 
 
 (defn todo-table [items]

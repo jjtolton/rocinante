@@ -28,12 +28,13 @@ eof
 ```
 
 General usage:
-```clj -Sdeps '{:deps {seancorfield/clj-new {:mvn/version "0.5.5"}}}' -m clj-new.create https://github.com/HiImJayHireMe/rocinante@3813da2d5eb548266da81a85615d011d06566de5 project.name
+```bash
+clj -Sdeps '{:deps {seancorfield/clj-new {:mvn/version "0.5.5"}}}' -m clj-new.create https://github.com/HiImJayHireMe/rocinante@3813da2d5eb548266da81a85615d011d06566de5 project.name
 cd project.name
 make
 ```
 
-To recompile `webpack`:
+To recompile `webpack` bundle:
 `yarn webpack`
 
 To use `figwheel-main`:

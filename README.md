@@ -1,5 +1,20 @@
-# tl;dr
+# Rocinante
 
+### tl;dr
+A self-documenting, data-driven, event-sourced, reactive datascript SPA template that lets you start coding immediately. 
+
+> "What giants?" said Sancho Panza....<br>
+> "It is easy to see," replied Don Quixote, "that thou art not used to this business of adventures; those are giants; and if thou art afraid, away with thee out of this and betake thyself to prayer while I engage them in fierce and unequal combat."<br>
+> So saying, he gave the spur to his steed Rocinante, heedless of the cries his squire Sancho sent after him, warning him that most certainly they were windmills and not giants he was going to attack.<br>
+> -- [Cervantes](http://www.online-literature.com/cervantes/don_quixote/12/)
+
+
+
+# Quickstart
+
+## Installation
+
+To run the demo:
 ```bash
 # paste me into your terminal
 bash <(cat << eof
@@ -12,18 +27,20 @@ eof
 )
 ```
 
-# Rocinante
+General usage:
+```clj -Sdeps '{:deps {seancorfield/clj-new {:mvn/version "0.5.5"}}}' -m clj-new.create https://github.com/HiImJayHireMe/rocinante@3813da2d5eb548266da81a85615d011d06566de5 project.name
+cd project.name
+make
+```
 
-> "What giants?" said Sancho Panza....<br>
-> "It is easy to see," replied Don Quixote, "that thou art not used to this business of adventures; those are giants; and if thou art afraid, away with thee out of this and betake thyself to prayer while I engage them in fierce and unequal combat."<br>
-> So saying, he gave the spur to his steed Rocinante, heedless of the cries his squire Sancho sent after him, warning him that most certainly they were windmills and not giants he was going to attack.<br>
-> -- [Cervantes](http://www.online-literature.com/cervantes/don_quixote/12/)
+To recompile `webpack`:
+`yarn webpack`
 
-# Quickstart
+To use `figwheel-main`:
+1. `bash bridge.sh`
+2. Connect to `.nrepl-port` from your favorite IDE
+3. Evaluate the contents of `figwheel.clj` in your REPL environment.
 
-## Installation
-
-Paste command from [above](#https://github.com/HiImJayHireMe/rocinante/blob/master/README.md#tl;dr)
 
 ## Requirements
 
@@ -36,16 +53,19 @@ Paste command from [above](#https://github.com/HiImJayHireMe/rocinante/blob/mast
 
 # Motivation
 
-Every ClojureScript tutorial ever: ![How to Draw an Owl](images/2019/08/owl.jpg)
+Every ClojureScript tutorial ever: 
 
-This is a ClojureScript [clj-new](https://github.com/seancorfield/clj-new) template that attempts to bridge that gap and get you writing code faster.
+![How to Draw an Owl](images/2019/08/owl.jpg)
+
+Everyone who I introduce to ClojureScript has been immediately turned off by the tooling.  The myriad of build options and relative complexity of each tool is overwhelming for the newcomer and an annoying boilerplate chore for the seasoned professional.  You shouldn't have to go through hours of setup requiring in-depth knowledge of tooling and meticulous attention to detail just for a `hello-world`.  
+
+The difficulty of mastering the tooling confounds the issue of how to create a scalable web application.  Developers will often do whatever it takes to get the application working, leaving a path of tech debt behind them.  Aside from providing a quick setup for a ClojureScript development environment, this [clj-new](https://github.com/seancorfield/clj-new) template serves as a guide and foundation for maintaining, scaling, and testing a large and complex SPA -- and hopefully bring back some of the FUN of ClojureScript!
 
 # Features
 
 ## This is
 
-- a batteries-included, data-driven, event-sourced, CQRS, reagent-based 
-SPA template featuring a working TODO app
+- a batteries-included, data-driven, event-sourced, CQRS, reagent-based SPA template featuring a working TODO app
 - skewed towards libraries over frameworks
 - `nREPL`/`figwheel-main`-ready out of the box to use with your favorite IDE
 - prepared with a curated `:deps` selection balancing minimalism and exploratory development

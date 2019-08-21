@@ -330,7 +330,17 @@ The primary change required to make this deployable is to reduce the size of the
 Once you're finished prototyping, change your `index.js` and `:requires` to be as specific as possible to
 lower the javascript payload size.  Use code splitting and load lazily if necessary.  
 
-### Roadmap
+## Why not...
+
+### Re-frame?
+[Re-frame](https://github.com/Day8/re-frame) is fantastic SPA framework, especially when used in conjunction with Eric Norman's [Understanding Re-frame](https://purelyfunctional.tv/courses/understanding-re-frame/) course.  However, I prefer using datascript as a primary datasource rather than re-frame's app-db.  Additionally, re-frame is its own DSL, relying on functions and macros.  When it came time for me to integrate websockets, webworkers, and even simple Ajax, re-frame fell short for me.  In order to do it the "re-frame way" required re-frame plugins, which, while fantastic, took me further down the re-frame rabbit hole.  
+### Re-posh?
+[Re-posh](https://github.com/denistakeda/re-posh) is a great plugin for re-frame that swaps the `re-frame.db/app-db` with a `posh` db, effectively giving you datascript for your re-frame application.  The only problem is, it's one more layer of DSL on top of the re-frame DSL, and now you're in a strange position that's not _quite_ re-frame DSL and it's not _quite_ datascript DSL.  Additionally, re-posh is an incomplete subset of datascript.  Certain things, like aggregations, just don't work like they do in datascript.  The differences are not well documented.  This frustration is ultimately what led me to abandon re-frame and re-posh in favor of the simple reagent approach.
+### Posh?
+[Posh](https://github.com/mpdairy/posh) is, on paper, reactive datascript.  Unfortunately it suffers from performance problems with large datasets, the code itself is quite complex, and it is a limited subset of datascript (does not support query aggregation).  In addition, the filters just don't quite work reliably or intuitively to me and finding workarounds are difficult.  `Rocinante`'s reactive datascript in conjunction with `reagent.ratom/make-reaction` is a simple, intuitive way to provide reactive denormalized data.  
+
+
+## Roadmap
 
 * [ ] Move certain verbose code into libraries (i.e., reactive datascript)
 * [ ] IndexedDB `:data` operations
@@ -339,3 +349,4 @@ lower the javascript payload size.  Use code splitting and load lazily if necess
 * [ ] Simple API for sending tasks to WebWorkers
 * [ ] Better documentation with more visuals (if only there was some kind of [pitch](https://pitch.com/) 
 web application...)
+* [ ] Expanded SPA tutorial

@@ -49,7 +49,7 @@ To use `figwheel-main`:
 - `Java`
 - `Clojure`
 - `rlwrap`
-- `nmp`
+- `npm`
 - `yarn`
 
 # Motivation

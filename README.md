@@ -346,7 +346,7 @@ Re-frame is a perfectly fine choice, and once you create the template, you are f
 
 Now, it seems that the re-frame ecosystem has an answer for almost everything. [`via`](https://github.com/7theta/via) for web sockets, [`worker-fx`](https://github.com/jtkDvlp/re-frame-worker-fx) for WebWorkers,  [`http-fx`](https://github.com/Day8/re-frame-http-fx) for Ajax, [`re-frame-test`](https://github.com/Day8/re-frame-test) for testing.  
 
-And this would be perfect every plugin always behaved exactly how I wanted and if my users were only ever interested in the behavior supported by the re-frame ecosystem.  But somehow it seems they always come up with something that requires _another_ plugin, or I have to fork and modify the plugin, or I get lazy and I end up writing an increasing number of "helper" functions.  Sometimes I need to use `core.async` directly.
+And this would be perfect if every plugin always behaved exactly how I wanted and if my users were only ever interested in the behavior supported by the re-frame ecosystem.  But somehow it seems they always come up with something that requires _another_ plugin, or I have to fork and modify the plugin, or I get lazy and I end up writing an increasing number of "helper" functions.  Sometimes I need to use `core.async` directly.
 
 For instance, when you recieve events from your websocket connection, you need a way to dispatch them based on the data.  This will require some-kind of `go-loop` and an event handler.  Now you're ALREADY outside the scope of what re-frame was designed to handle.  
 

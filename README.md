@@ -308,6 +308,7 @@ component local state is not.
 * WebWorkers can update component state after doing 
 huge computations without UI lockup.
 * WebSockets can change component state.
+* Server Sent Events can change component state.
 * Sanity -- it becomes possible to reason about what large applications are doing.
 * Maintainability -- the code is easy to find, easy to read. 
 Concerns are separated.  Changing code in one place will not 
@@ -326,14 +327,33 @@ for the browser, you should reap the full benefits of your hard work.
 
 ### Changes for Deployment
 
-The primary change required to make this deployable is to reduce the size of the `webpack` bundle.
+With a few tweaks, `Rocinante` is suitable for production deployment.  However, it is primarily designed to help you _start coding fast_ WITHOUT sacrificing code organization.  There are areas that could be improved.  
+
+1.  The primary change required to make this deployable is to reduce the size of the `webpack` bundle.
 Once you're finished prototyping, change your `index.js` and `:requires` to be as specific as possible to
 lower the javascript payload size.  Use code splitting and load lazily if necessary.  
+2a.  `event/event!` is excellent for data-driven development, exploratory development, and rapid-prototyping.  However, if you're trying to milk every drop of performance out of a single threaded application, you would be better replacing `(event/event! some-event)` with a function that places an event directly on the event-bus (or even *gasp* inline the side effects).  I do NOT recommend doing this early in development, but only when the product is stable and you're trying to increase performance or looking for work to give to other developers who are trying to learn Clojure/Script. 
+2b.  If you find your application having performance issues because your handler functions are doing too much work, you should pass them off to a WebWorker instead.  If you're unfamiliar with WebWorkers -- think of them as a server.  Before WebWorkers, I would send data off to the server to perform compute heavy tasks and then long-poll or use websockets to retrieve the results (this would prevent UI lockup).  However, with WebWorkers, you can save the overhead of the network connection and use WebWorkers to do the data manipulation while freeing up the main event loop to processes GUI painting and event handling.  
+
+
 
 ## Why not...
 
 ### Re-frame?
-[Re-frame](https://github.com/Day8/re-frame) is fantastic SPA framework, especially when used in conjunction with Eric Norman's [Understanding Re-frame](https://purelyfunctional.tv/courses/understanding-re-frame/) course.  However, I prefer using datascript as a primary datasource rather than re-frame's app-db.  Additionally, re-frame is its own DSL, relying on functions and macros.  When it came time for me to integrate websockets, webworkers, and even simple Ajax, re-frame fell short for me.  In order to do it the "re-frame way" required re-frame plugins, which, while fantastic, took me further down the re-frame rabbit hole.  
+[Re-frame](https://github.com/Day8/re-frame) is fantastic SPA framework, especially when used in conjunction with Eric Norman's [Understanding Re-frame](https://purelyfunctional.tv/courses/understanding-re-frame/) course.  The first thing to understand is that `Rocinante` IS -- or, _was_ -- a re-frame template at one point.  Bit by bit, the pieces of `re-frame` fell away. `rf/dispatch` was replaced by functions that modified component local state and `core.async` events.  `rf/subscribe` was replaced by `reagent/atom` and `reagent.ratom/make-reaction`.  `fx` were replaced by event handlers. Component local state gave way to events and the `event-loop`.  `reagent.db/app-db` gave way to `datascript`.  Finally one day, even though I considered myself a re-frame developer, I realized I wasn't using re-frame at all!
+
+Re-frame is a perfectly fine choice, and once you create the template, you are free to modify it however you wish!  Re-frame is included in the `:deps` section.  However, I prefer using `datascript` as a primary datasource rather than re-frame's `app-db`.  Additionally, re-frame has its own "magic" DSL.  When it came time for me to integrate websockets, webworkers, and even simple Ajax, re-frame fell short for me.  In order to do it the "re-frame way" required re-frame plugins, which, while fantastic, took me further down the re-frame rabbit hole.  
+
+Now, it seems that the re-frame ecosystem has an answer for almost everything. [`via`](https://github.com/7theta/via) for web sockets, [`worker-fx`](https://github.com/jtkDvlp/re-frame-worker-fx) for WebWorkers,  [`http-fx`](https://github.com/Day8/re-frame-http-fx) for Ajax, [`re-frame-test`](https://github.com/Day8/re-frame-test) for testing.  
+
+And this would be perfect every plugin always behaved exactly how I wanted and if my users were only ever interested in the behavior supported by the re-frame ecosystem.  But somehow it seems they always come up with something that requires _another_ plugin, or I have to fork and modify the plugin, or I get lazy and I end up writing an increasing number of "helper" functions.  Sometimes I need to use `core.async` directly.
+
+For instance, when you recieve events from your websocket connection, you need a way to dispatch them based on the data.  This will require some-kind of `go-loop` and an event handler.  Now you're ALREADY outside the scope of what re-frame was designed to handle.  
+
+The story with Ajax is also a mess.  You need to use `http-fx`, which gives you a handler to make a _single_ HTTP request.  If you're doing a paginated fetch or long-polling, especially if you have interlocking dependencies or are required to wait for uninitialized values, this gets very, very messy and very, very paintful.  To handle that you need [`re-frame-async-flow-fx`](https://github.com/Day8/re-frame-async-flow-fx) -- which has its own DSL.  Not to mention you have to learn a new DSL just for `http-fx` -- AND `http-fx` is never as well maintained as [`cljs-http`](https://github.com/r0man/cljs-http) or [`ajax-cljs`](https://github.com/JulianBirch/cljs-ajax).  
+
+To summarize, I think the philosophy behind re-frame is outstanding.  When you are first learning ClojureScript webapp development, it is an excellent set of training wheels -- certainly was for me. But we are in the business of adventure, and `Rocinante` is for slaying giants.  
+
 ### Re-posh?
 [Re-posh](https://github.com/denistakeda/re-posh) is a great plugin for re-frame that swaps the `re-frame.db/app-db` with a `posh` db, effectively giving you datascript for your re-frame application.  The only problem is, it's one more layer of DSL on top of the re-frame DSL, and now you're in a strange position that's not _quite_ re-frame DSL and it's not _quite_ datascript DSL.  Additionally, re-posh is an incomplete subset of datascript.  Certain things, like aggregations, just don't work like they do in datascript.  The differences are not well documented.  This frustration is ultimately what led me to abandon re-frame and re-posh in favor of the simple reagent approach.
 ### Posh?

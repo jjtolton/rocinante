@@ -367,7 +367,6 @@ To summarize, I think the philosophy behind re-frame is outstanding.  When you a
 * [ ] WebSocket starter kit  
 * [ ] clj-new.generate tools (to deploy domain specific code automatically)
 * [ ] Simple API for sending tasks to WebWorkers
-* [ ] Better documentation with more visuals (if only there was some kind of [pitch](https://pitch.com/) 
-web application...)
+* [ ] Better documentation with more visuals 
 * [ ] SASS/Garden
 * [ ] Expanded SPA tutorial
